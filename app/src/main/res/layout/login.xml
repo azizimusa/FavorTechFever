@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="context"
+            type="please.hire.me.view.LoginActivity" />
     </data>
 
     <LinearLayout
@@ -37,6 +39,8 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    android:maxLength="20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -50,6 +54,9 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:maxLength="20"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -62,12 +69,14 @@
 
                 <Button
                     android:text="Login"
+                    android:onClick="@{()-> context.login()}"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />
 
                 <Button
                     android:text="Sign Up"
+                    android:onClick="@{()-> context.openSignUpPage()}"
                     android:backgroundTint="@android:color/holo_green_dark"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"

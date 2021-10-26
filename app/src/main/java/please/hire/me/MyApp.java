@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.appspector.sdk.AppSpector;
 
+import please.hire.me.database.AppDatabase;
 import timber.log.Timber;
 
 public class MyApp extends Application {
@@ -29,7 +30,9 @@ public class MyApp extends Application {
         AppSpector
                 .build(this)
                 .addHttpMonitor()
-                .addScreenshotMonitor()
+//                .addScreenshotMonitor()
+                .addFileSystemMonitor()
+                .addSharedPreferenceMonitor()
                 .addSQLMonitor()
                 .run(Constant.SECRET_KEY);
     }
