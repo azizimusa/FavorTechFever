@@ -51,14 +51,18 @@ public class VideoGalleryAdapter extends RecyclerView.Adapter<VideoGalleryAdapte
 
         File file = files.get(position);
 
-        Bitmap bm = ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MICRO_KIND);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.PNG, 70, stream);
+        try {
+            Bitmap bm = ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Images.Thumbnails.MICRO_KIND);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 70, stream);
 
-        Glide.with(context)
-                .asBitmap()
-                .load(stream.toByteArray())
-                .into(holder.view.iv);
+            Glide.with(context)
+                    .asBitmap()
+                    .load(stream.toByteArray())
+                    .into(holder.view.iv);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         holder.view.title.setText(file.getName());
 

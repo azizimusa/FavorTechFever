@@ -1,16 +1,14 @@
 package please.hire.me.presenter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.OpenableColumns;
-import android.view.View;
+import android.os.Environment;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.marchinram.rxgallery.RxGallery;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
@@ -19,6 +17,7 @@ import please.hire.me.Constant;
 import please.hire.me.R;
 import please.hire.me.UriHelper;
 import please.hire.me.Util;
+import please.hire.me.view.GalleryActivity;
 import timber.log.Timber;
 
 public class GalleryPresenter {
@@ -28,8 +27,7 @@ public class GalleryPresenter {
     private Disposable disposable;
 
     public interface Action {
-        void resultGallery(List<Uri> uri);
-
+        void resultGallery(List<File> files);
     }
 
     public GalleryPresenter(Action action, Context context, Disposable disposable) {
@@ -38,34 +36,24 @@ public class GalleryPresenter {
         this.disposable = disposable;
     }
 
-    public void pickFromGallery(View view) {
+    public void pickFromGallery() {
 
-        disposable = RxGallery.gallery((AppCompatActivity) context, true, RxGallery.MimeType.VIDEO).subscribe(new Consumer<List<Uri>>() {
+        disposable = RxGallery.gallery((GalleryActivity) context, true, RxGallery.MimeType.VIDEO).subscribe(new Consumer<List<Uri>>() {
             @Override
             public void accept(List<Uri> uris) throws Exception {
                 StringBuffer message = new StringBuffer(context.getResources()
                         .getQuantityString(R.plurals.selected_items, uris.size(), uris.size()));
+
+                List<File> files = new ArrayList<>();
+
                 for (Uri uri : uris) {
-                    message.append("\n").append(uri.toString());
+                    String g = UriHelper.getInstance().getPathUsingContentResolver(uri, context).split(":")[1];
+                    String pp = Environment.getExternalStorageDirectory() + File.separator + g;
+
+                    files.add(new File(pp));
                 }
 
-                action.resultGallery(uris);
-
-                long sizeByte = UriHelper.getInstance().getFileSize(uris.get(0), context);
-
-//                String hehePath = UriHelper.getInstance().getPathUsingContentResolver(uris.get(0), context);
-//                Timber.e(hehePath);
-
-                if (sizeByte > Constant.TEN_MB_IN_BYTES) {
-                    Util.showToast(context, "More than 10MB");
-                } else {
-                    Util.showToast(context, "Lesser than 10MB");
-                }
-
-                long sizeMB = sizeByte / (1024 * 1024);
-                long roundOff = Math.round(sizeMB*100)/100;
-
-                Timber.e(message.toString());
+                action.resultGallery(files);
             }
         }, new Consumer<Throwable>() {
             @Override
