@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 
 import androidx.documentfile.provider.DocumentFile;
 
@@ -106,6 +107,18 @@ public class UriHelper {
             Timber.i("... not content scheme:" + uri.getScheme() + "  and return:" + path);
             return path;
         }
+    }
+
+    public long getFileSize(Uri fileUri, Context context) {
+        Cursor returnCursor = context.getContentResolver().
+                query(fileUri, null, null, null, null);
+        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+        returnCursor.moveToFirst();
+
+        long result = returnCursor.getLong(sizeIndex);
+        returnCursor.close();
+
+        return result;
     }
 
     public String getFileName(Uri uri, Context context) {

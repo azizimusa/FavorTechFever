@@ -7,6 +7,8 @@ import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.marchinram.rxgallery.RxGallery;
 
 import java.util.List;
@@ -17,7 +19,6 @@ import please.hire.me.Constant;
 import please.hire.me.R;
 import please.hire.me.UriHelper;
 import please.hire.me.Util;
-import please.hire.me.view.GalleryActivity;
 import timber.log.Timber;
 
 public class GalleryPresenter {
@@ -27,7 +28,7 @@ public class GalleryPresenter {
     private Disposable disposable;
 
     public interface Action {
-        void resultGallery(Uri uri);
+        void resultGallery(List<Uri> uri);
 
     }
 
@@ -37,21 +38,9 @@ public class GalleryPresenter {
         this.disposable = disposable;
     }
 
-    private long getFileSize(Uri fileUri) {
-        Cursor returnCursor = context.getContentResolver().
-                query(fileUri, null, null, null, null);
-        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-        returnCursor.moveToFirst();
-
-        long result = returnCursor.getLong(sizeIndex);
-        returnCursor.close();
-
-        return result;
-    }
-
     public void pickFromGallery(View view) {
 
-        disposable = RxGallery.gallery((GalleryActivity) context, false, RxGallery.MimeType.VIDEO).subscribe(new Consumer<List<Uri>>() {
+        disposable = RxGallery.gallery((AppCompatActivity) context, true, RxGallery.MimeType.VIDEO).subscribe(new Consumer<List<Uri>>() {
             @Override
             public void accept(List<Uri> uris) throws Exception {
                 StringBuffer message = new StringBuffer(context.getResources()
@@ -60,9 +49,9 @@ public class GalleryPresenter {
                     message.append("\n").append(uri.toString());
                 }
 
-                action.resultGallery(uris.get(0));
+                action.resultGallery(uris);
 
-                long sizeByte = getFileSize(uris.get(0));
+                long sizeByte = UriHelper.getInstance().getFileSize(uris.get(0), context);
 
 //                String hehePath = UriHelper.getInstance().getPathUsingContentResolver(uris.get(0), context);
 //                Timber.e(hehePath);
