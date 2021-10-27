@@ -3,6 +3,7 @@ package please.hire.me.database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -16,7 +17,7 @@ public interface UserDao {
     @Query("select * from user order by id")
     List<User> loadAllUser();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     void insertUser(User user);
 
     @Update

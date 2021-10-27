@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="please.hire.me">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-sdk tools:overrideLibrary="com.tbruyelle.rxpermissions" />
 
     <application
         android:name=".MyApp"
@@ -26,7 +30,25 @@
             android:screenOrientation="portrait" />
         <activity android:name=".view.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.SignUpActivity" />
+        <activity android:name=".view.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.ProductDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".view.ProductListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.GalleryActivity"
+            android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

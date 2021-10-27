@@ -1,20 +1,10 @@
 package please.hire.me.model;
 
-import static androidx.room.ForeignKey.CASCADE;
-
-import androidx.room.Database;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(
-        indices = @Index(
-                value = {"username","nric","phone"},
-                unique = true
-        )
-)
-
+@Entity()
 public class User {
 
     @PrimaryKey(autoGenerate = true)

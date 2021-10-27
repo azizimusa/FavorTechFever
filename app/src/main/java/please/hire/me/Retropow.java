@@ -3,6 +3,7 @@ package please.hire.me;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import please.hire.me.model.StoreModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -14,7 +15,7 @@ public interface Retropow {
     String BASE_URL = "https://fakestoreapi.com/";
 
     @GET("products")
-    Call<StoreModel> getProducts();
+    Call<ResponseBody> getProducts();
 
     class Factory {
         public static Retropow create(){
