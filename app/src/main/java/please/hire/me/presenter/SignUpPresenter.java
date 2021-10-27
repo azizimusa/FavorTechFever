@@ -49,13 +49,16 @@ public class SignUpPresenter {
             @Override
             public void run() {
                 try {
-                    appDatabase.userDao().insertUser(user);
 
-                    updater("Registration Success");
+                    if (appDatabase.userDao().checkRecordExist(username, nric, phone)) {
+                        updater("Username, NRIC or Phone might already exist");
+                    } else {
+                        appDatabase.userDao().insertUser(user);
+                        updater("Registration Success");
+                    }
 
                 } catch (SQLiteConstraintException e) {
                     e.printStackTrace();
-
                     updater("Username, NRIC or Phone might already exist");
                 }
             }

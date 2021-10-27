@@ -40,6 +40,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username"
+                    android:singleLine="true"
                     android:maxLength="20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -55,7 +56,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
-                    android:maxLength="20"
+                    android:maxLength="6"
+                    android:singleLine="true"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

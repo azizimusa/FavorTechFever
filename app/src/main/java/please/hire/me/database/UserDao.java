@@ -32,4 +32,7 @@ public interface UserDao {
     @Query("select * from user where username = :username and password = :password")
     User selectUser(String username, String password);
 
+    @Query("select * from user where username = :username or nric = :nric or phone = :phone")
+    boolean checkRecordExist(String username, String nric, String phone);
+
 }

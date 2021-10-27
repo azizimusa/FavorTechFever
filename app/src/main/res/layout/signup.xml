@@ -27,6 +27,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
+                    android:singleLine="true"
                     android:inputType="text|textNoSuggestions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -42,6 +43,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username"
+                    android:singleLine="true"
+                    android:maxLength="20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -50,13 +53,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:hint="Password"
                 app:passwordToggleEnabled="true"
-                android:inputType="number"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
+                    android:maxLength="6"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -71,6 +76,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nric"
+                    android:singleLine="true"
+                    android:maxLength="12"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -85,7 +92,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
-                    android:inputType="number"
+                    android:singleLine="true"
+                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
