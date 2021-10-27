@@ -1,33 +1,20 @@
 package please.hire.me.view;
 
 import android.Manifest;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.tbruyelle.rxpermissions3.RxPermissions;
 
-import net.alhazmy13.mediapicker.Video.VideoPicker;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
-import please.hire.me.FileUtils;
 import please.hire.me.R;
-import please.hire.me.UriHelper;
 import please.hire.me.Util;
 import please.hire.me.adapter.VideoGalleryAdapter;
 import please.hire.me.databinding.GalleryBinding;
