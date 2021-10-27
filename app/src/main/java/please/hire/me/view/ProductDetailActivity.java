@@ -1,8 +1,10 @@
 package please.hire.me.view;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -38,12 +40,30 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private void loadContent(ProductModel productModel) {
 
-        getSupportActionBar().setTitle(productModel.getTitle());
+        getSupportActionBar().setTitle(productModel.getCategory().toUpperCase());
+        viewBinding.title.setText(productModel.getTitle());
         viewBinding.subtitle.setText(productModel.getDescription());
-        viewBinding.star.setText(String.valueOf(productModel.getStarCount()));
-        viewBinding.distance.setText("0");
-        viewBinding.voucher.setText("voucher");
+        viewBinding.star.setText("RM " + productModel.getPrice());
+        viewBinding.distance.setText("Rating : " + productModel.getRating());
+        viewBinding.voucher.setText("Liked : " + productModel.getStarCount());
 
         Glide.with(this).load(productModel.getImageUrl()).into(viewBinding.image);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+            case android.R.id.home:
+                onBackPressed();
+
+                // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+                break;
+
+        }
+
+        return true;
     }
 }

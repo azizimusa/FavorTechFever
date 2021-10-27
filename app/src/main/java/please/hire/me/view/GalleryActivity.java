@@ -39,7 +39,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryPresent
 
         RxPermissions rxPermissions = new RxPermissions(this);
 
-        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(granted ->{
                     if (granted) {
                         presenter.pickFromGallery();
@@ -60,6 +60,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryPresent
             @Override
             public void onCompress(File file) {
                 Timber.e("Compress " + file.getName());
+                presenter.compressVideo(file);
             }
         });
 
@@ -70,6 +71,13 @@ public class GalleryActivity extends AppCompatActivity implements GalleryPresent
     @Override
     public void resultGallery(List<File> files) {
         initListing(files);
+    }
+
+    @Override
+    public void compressedDone(File file) {
+        Util.showToast(this, "Compress Done");
+
+        adapter.update(file);
     }
 
     @Override

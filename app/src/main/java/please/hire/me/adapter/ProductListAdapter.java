@@ -68,7 +68,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.view.title.setText(model.getTitle());
         holder.view.price.setText("RM " + model.getPrice());
 
-        String getCachedImage = context.getCacheDir().getAbsolutePath() + File.separator + "images" + File.separator + model.getImageUrl().split("/")[4];
+        String getCachedImage = context.getCacheDir().getAbsolutePath() + "/images/" + model.getImageUrl().split("/")[4];
         Bitmap cachedBitmap = BitmapFactory.decodeFile(getCachedImage, null);
         Drawable cachedDrawable = new BitmapDrawable(context.getResources(), cachedBitmap);
 
@@ -106,7 +106,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     private File savebitmap(String filename, Bitmap bitmap) {
-        String getAppFolder = context.getCacheDir().getAbsolutePath() + File.separator + "images";
+        String getAppFolder = context.getCacheDir().getAbsolutePath() + "/images";
 
         new File(getAppFolder).mkdir();
 

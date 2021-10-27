@@ -83,7 +83,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
 
                         for (StoreModel a : storeModels) {
 
-                            String getCachedImage = getCacheDir().getAbsolutePath() + File.separator + "images" + File.separator + a.getImage().split("/")[4];
+                            String getCachedImage = getCacheDir().getAbsolutePath() + "/images/" + a.getImage().split("/")[4];
 
                             ProductModel model = new ProductModel();
                             model.setCategory(a.getCategory());
