@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import com.google.gson.Gson;
 
 import please.hire.me.MyApp;
+import please.hire.me.Util;
 import please.hire.me.database.AppDatabase;
 import please.hire.me.database.AppExecutors;
 import please.hire.me.model.User;
@@ -20,7 +21,7 @@ public class SignUpPresenter {
     boolean isSuccess;
 
     public interface Action {
-        void update(String content);
+        void update(boolean result, String content);
     }
 
     public SignUpPresenter(Action action, Context context) {
@@ -30,11 +31,15 @@ public class SignUpPresenter {
         appDatabase = AppDatabase.getInstance(context);
     }
 
-    private void updater(String msg) {
+    private void updater(String msg, String username) {
         AppExecutors.getInstance().mainThread().execute(new Runnable() {
             @Override
             public void run() {
-                action.update(msg);
+                action.update(username != null, msg);
+
+                if (username != null) {
+                    Util.setCurrentUsername(username);
+                }
             }
         });
     }
@@ -51,15 +56,15 @@ public class SignUpPresenter {
                 try {
 
                     if (appDatabase.userDao().checkRecordExist(username, nric, phone)) {
-                        updater("Username, NRIC or Phone might already exist");
+                        updater("Username, NRIC or Phone might already exist", null);
                     } else {
                         appDatabase.userDao().insertUser(user);
-                        updater("Registration Success");
+                        updater("Registration Success", username);
                     }
 
                 } catch (SQLiteConstraintException e) {
                     e.printStackTrace();
-                    updater("Username, NRIC or Phone might already exist");
+                    updater("Username, NRIC or Phone might already exist", null);
                 }
             }
         });

@@ -29,6 +29,9 @@ public interface UserDao {
     @Query("select * from user where id = :id")
     User loadUserById(int id);
 
+    @Query("select * from user where username = :username")
+    boolean checkUsername(String username);
+
     @Query("select * from user where username = :username and password = :password")
     User selectUser(String username, String password);
 

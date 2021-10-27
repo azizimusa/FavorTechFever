@@ -28,7 +28,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:singleLine="true"
-                    android:inputType="text|textNoSuggestions"
+                    android:maxLength="50"
+                    android:inputType="text|textCapWords"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -94,6 +95,7 @@
                     android:id="@+id/phone"
                     android:singleLine="true"
                     android:inputType="phone"
+                    android:maxLength="11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

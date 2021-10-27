@@ -22,4 +22,12 @@ public class Util {
     public static boolean isLogin() {
         return MyApp.getInstance().getSharedPrefs().getBoolean(Constant.IS_LOGIN, false);
     }
+
+    public static void setCurrentUsername(String value) {
+        MyApp.getInstance().getSharedPrefs().edit().putString(Constant.USERNAME, value).apply();
+    }
+
+    public static String getCurrentUsername() {
+        return MyApp.getInstance().getSharedPrefs().getString(Constant.USERNAME, "false");
+    }
 }

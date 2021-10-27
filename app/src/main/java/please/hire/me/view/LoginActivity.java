@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.A
         viewBinding.setContext(this);
 
         loginPresenter = new LoginPresenter(this, this);
+
     }
 
     public void login() {
@@ -44,14 +45,18 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.A
     }
 
     @Override
-    public void update(boolean result, User user) {
+    public void update(boolean result, User user, String msg) {
 
-        if (!result) {
-            Util.showToast(this, "User not exist");
-        } else {
-            Util.showToast(this, "Welcome " + user.getName());
+        Util.showToast(this, msg);
 
+        if (result) {
             startActivity(new Intent(this, MainActivity.class));
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewBinding.username.setText(Util.getCurrentUsername());
     }
 }

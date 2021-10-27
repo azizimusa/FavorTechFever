@@ -97,7 +97,9 @@
 
                     <TextView
                         android:id="@+id/star"
-                        android:textSize="12sp"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:hint="Star"
                         android:layout_marginRight="5dp"
                         android:gravity="center_vertical"

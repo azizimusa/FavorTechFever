@@ -15,7 +15,7 @@ public class LoginPresenter {
     AppDatabase appDatabase;
 
     public interface Action {
-        void update(boolean result, User user);
+        void update(boolean result, User user, String msg);
     }
 
     public LoginPresenter(Action action, Context context) {
@@ -25,20 +25,41 @@ public class LoginPresenter {
         appDatabase = AppDatabase.getInstance(context);
     }
 
+    private void updater(boolean result, User user, String msg) {
+        AppExecutors.getInstance().mainThread().execute(new Runnable() {
+            @Override
+            public void run() {
+
+                Util.isLogin(result);
+
+                if (result) {
+                    Util.setCurrentUsername(user.getUsername());
+                    action.update(true, user, msg);
+                } else {
+                    action.update(false, null, msg);
+                }
+            }
+        });
+    }
+
     public void doLogin(String username, String password) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    User user = appDatabase.userDao().selectUser(username, password);
 
-                    AppExecutors.getInstance().mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            action.update(user != null, user);
-                            Util.isLogin(user != null);
+                    if (appDatabase.userDao().checkUsername(username)) {
+                        User user = appDatabase.userDao().selectUser(username, password);
+
+                        if (user != null) {
+                            updater(true, user, "Welcome " + user.getName());
+                        } else {
+                            updater(false, null, "You have enter a wrong password");
                         }
-                    });
+
+                    } else {
+                        updater(false, null, "User not exist");
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();

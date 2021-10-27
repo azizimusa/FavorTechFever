@@ -51,8 +51,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpPresenter
     }
 
     @Override
-    public void update(String content) {
+    public void update(boolean result, String content) {
         Util.showToast(this, content);
+
+        if (result) {
+            onBackPressed();
+        }
     }
 
 }
