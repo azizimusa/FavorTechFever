@@ -44,7 +44,7 @@ public class GalleryPresenter {
     public void initProgressDialog(String msg) {
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(msg);
-        progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
+        progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Run in background", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 progressDialog.dismiss();
@@ -59,9 +59,9 @@ public class GalleryPresenter {
 
     public void compressVideo(File file) {
 
-        String dest = Environment.getExternalStorageDirectory() + "/compressVideo";
+        String dest = Environment.getExternalStorageDirectory() + "/resizedVideo";
 
-        File newFile = new File(dest, "compress_"+file.getName());
+        File newFile = new File(dest, "resized_"+file.getName());
 
         if (!new File(dest).exists()) {
             Timber.e("Creating " + dest + " : " + new File(dest).mkdir());

@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.A
         viewBinding.setContext(this);
 
         loginPresenter = new LoginPresenter(this, this);
-
     }
 
     public void login() {

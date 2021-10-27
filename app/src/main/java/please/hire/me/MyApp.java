@@ -1,6 +1,8 @@
 package please.hire.me;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.appspector.sdk.AppSpector;
 
@@ -44,5 +46,9 @@ public class MyApp extends Application {
         }
 
         return retropow;
+    }
+
+    public SharedPreferences getSharedPrefs() {
+        return getSharedPreferences("favor", Context.MODE_PRIVATE);
     }
 }

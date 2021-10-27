@@ -3,6 +3,7 @@ package please.hire.me.presenter;
 import android.content.Context;
 import android.view.View;
 
+import please.hire.me.Util;
 import please.hire.me.database.AppDatabase;
 import please.hire.me.database.AppExecutors;
 import please.hire.me.model.User;
@@ -35,6 +36,7 @@ public class LoginPresenter {
                         @Override
                         public void run() {
                             action.update(user != null, user);
+                            Util.isLogin(user != null);
                         }
                     });
 

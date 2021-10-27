@@ -7,6 +7,8 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import please.hire.me.Util;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -18,7 +20,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                Intent intent;
+
+                if (Util.isLogin()) {
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                } else {
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                }
+
                 finish();
                 startActivity(intent);
             }

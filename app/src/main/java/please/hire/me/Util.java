@@ -14,4 +14,12 @@ public class Util {
         toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
         toast.show();
     }
+
+    public static void isLogin(boolean value) {
+        MyApp.getInstance().getSharedPrefs().edit().putBoolean(Constant.IS_LOGIN, value).apply();
+    }
+
+    public static boolean isLogin() {
+        return MyApp.getInstance().getSharedPrefs().getBoolean(Constant.IS_LOGIN, false);
+    }
 }
